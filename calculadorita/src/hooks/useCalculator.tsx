@@ -11,14 +11,15 @@ export const useCalculator = () =>{
     //Hooks
     const[number, setNumber] = useState('0');
     const [prevNumber, setPrevNumber] = useState('0');
-    const lastOperation = useRef<Operator>();;
+    const lastOperation = useRef<Operator>();
+    const [formula, setFormula] = useState('');
 
 
     const  clean = () => {
         setNumber('0'),
         setPrevNumber('0');
         lastOperation.current = undefined;
-
+        setFormula('');
     };
 
     const deleteOperation = () => {
@@ -75,8 +76,20 @@ export const useCalculator = () =>{
         }
         setNumber(number + numberString);
     };
+
+    const setLastNumber = () =>{
+        calculateResult();
+        if (number.endsWith('.')){
+            setPrevNumber(number.slice(0, -1));
+        }else{
+            setPrevNumber(number);
+        }
+        setNumber('0');
+    }
+
+
     //Operaciones Aritmeticas
-    const divideOperation = () => {
+     const divideOperation = () => {
         setLastNumber();
         lastOperation.current = Operator.divide;
      }
@@ -104,6 +117,7 @@ export const useCalculator = () =>{
         setPrevNumber('0');
 
      };
+
      const calculateSubResult = () =>{
         const [firstValue, operation, secondValue] = formula.split(' ');
 
@@ -141,7 +155,9 @@ export const useCalculator = () =>{
      }, [formula])
 
 
-     return{
+
+    //Return
+    return{
         number,
         prevNumber,
         setLastNumber,
@@ -156,7 +172,6 @@ export const useCalculator = () =>{
         addOperation,
         subtractOperation,
         calculateResult,
-
 
     };
 };

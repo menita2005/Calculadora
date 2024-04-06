@@ -3,7 +3,6 @@ import { colors, styles } from "../config/theme/app-theme";
 import { CalculatorButton } from "../components/CalculatorButton";
 import { useCalculator } from "../hooks/useCalculator";
 
-
 export const CalculatorScreen = () => {
     const {
         number,
@@ -12,9 +11,13 @@ export const CalculatorScreen = () => {
         toggleSing,
         clean,
         deleteOperation,
+        divideOperation,
+        multiplyOperation,
+        addOperation,
+        subtractOperation,
+        calculateResult,
+        formula,
     } = useCalculator();
-
-
 
 
     return (
