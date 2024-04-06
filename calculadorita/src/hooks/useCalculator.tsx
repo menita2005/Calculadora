@@ -75,16 +75,50 @@ export const useCalculator = () =>{
         }
         setNumber(number + numberString);
     };
+    //Operaciones Aritmeticas
+    const divideOperation = () => {
+        setLastNumber();
+        lastOperation.current = Operator.divide;
+     }
+
+     const multiplyOperation = () => {
+        setLastNumber();
+        lastOperation.current = Operator.multiply;
+     }
+
+     const addOperation = () => {
+        setLastNumber();
+        lastOperation.current = Operator.add;
+     }
+
+     const subtractOperation = () => {
+        setLastNumber();
+        lastOperation.current = Operator.subtract;
+     }
+
+
+     const calculateResult = () => {
+     const result = calculateSubResult();
+     setFormula(`${result}`);
+     lastOperation.current = undefined;
+        setPrevNumber('0');
+
+     };
 
      //Return
      return{
         number,
         prevNumber,
-
+        setLastNumber,
+        divideOperation,
+        multiplyOperation,
+        addOperation,
+        subtractOperation,
         buildNumber,
         toggleSing,
         clean,
         deleteOperation,
+        calculateResult,
 
 
     };
