@@ -104,20 +104,57 @@ export const useCalculator = () =>{
         setPrevNumber('0');
 
      };
+     const calculateSubResult = () =>{
+        const [firstValue, operation, secondValue] = formula.split(' ');
 
-     //Return
+        const num1 = Number (firstValue);
+        const num2 = Number (secondValue);
+
+        if (isNaN(num2)) return num1;
+        switch (operation){
+        case Operator.add: 
+            return num1 + num2;  
+        case Operator.subtract:
+            return num1 - num2;
+        case Operator.multiply:
+            return num1 * num2;
+        case Operator.divide:
+            return num1 / num2;
+        default: 
+            throw new Error("Invalid Operation");
+            
+        }
+     };
+
+     useEffect( () => {
+        if(lastOperation.current){
+            const firstFormulaPart = formula.split(' ').at(0);
+            setFormula(`${firstFormulaPart} ${lastOperation.current} ${number}`);
+        }else{
+            setFormula(number);
+        }
+     }, [number]);
+
+     useEffect( () => {
+        const subResult = calculateSubResult();
+        setPrevNumber(`${subResult}`)
+     }, [formula])
+
+
      return{
         number,
         prevNumber,
         setLastNumber,
-        divideOperation,
-        multiplyOperation,
-        addOperation,
-        subtractOperation,
+        formula,
+
         buildNumber,
         toggleSing,
         clean,
         deleteOperation,
+        divideOperation,
+        multiplyOperation,
+        addOperation,
+        subtractOperation,
         calculateResult,
 
 
